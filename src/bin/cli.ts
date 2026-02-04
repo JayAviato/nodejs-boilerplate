@@ -37,36 +37,48 @@ program
         }
 
         const targetPath = path.resolve(process.cwd(), projectDir);
+        console.log(chalk.gray(`\nTarget directory: ${targetPath}`));
 
         if (fs.existsSync(targetPath) && fs.readdirSync(targetPath).length > 0) {
-            const res = await prompts({
-                type: 'confirm',
-                name: 'overwrite',
-                message: `Directory ${chalk.cyan(projectDir)} is not empty. Continue?`,
-                initial: false
-            });
+            const hasEssentialFiles = fs.existsSync(path.join(targetPath, 'src')) || fs.existsSync(path.join(targetPath, 'package.json'));
 
-            if (!res.overwrite) {
-                console.log(chalk.red('❌ Operation cancelled'));
-                process.exit(1);
+            if (hasEssentialFiles) {
+                const res = await prompts({
+                    type: 'confirm',
+                    name: 'overwrite',
+                    message: `Directory ${chalk.cyan(projectDir)} already contains a project. Overwrite?`,
+                    initial: false
+                });
+
+                if (!res.overwrite) {
+                    console.log(chalk.red('❌ Operation cancelled'));
+                    process.exit(1);
+                }
             }
         }
 
         // 2. Clone Repository
-        const spinner = ora(`Downloading template...`).start();
+        const spinner = ora(`Scaffolding project into ${chalk.cyan(projectDir)}...`).start();
 
         try {
-            const emitter = degit('JayAviato/nodejs-boilerplate#main', {
+            const emitter = degit('JayAviato/nodejs-boilerplate', {
                 cache: false,
                 force: true,
                 verbose: true,
             });
 
             await emitter.clone(targetPath);
-            spinner.succeed(chalk.green('Template downloaded successfully!'));
+
+            // Critical Verification
+            if (!fs.existsSync(path.join(targetPath, 'src'))) {
+                throw new Error(`Scaffolding failed: "src" folder not found at ${targetPath}`);
+            }
+
+            spinner.succeed(chalk.green('Project scaffolded successfully!'));
         } catch (err) {
-            spinner.fail(chalk.red('Failed to download template'));
-            console.error(err);
+            spinner.fail(chalk.red('Scaffolding failed'));
+            console.error(chalk.red(`\nError: ${err instanceof Error ? err.message : String(err)}`));
+            console.log(chalk.yellow('\nTip: Try running in an empty directory or check your internet connection.'));
             process.exit(1);
         }
 
@@ -77,16 +89,20 @@ program
             const pkgPath = path.join(targetPath, 'package.json');
             const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
 
-            pkg.name = path.basename(projectDir);
+            pkg.name = path.basename(projectDir === '.' ? path.basename(process.cwd()) : projectDir);
             pkg.version = '0.1.0';
             pkg.description = 'Created with Enterprise Node.js Boilerplate';
 
-            // Remove the bin entry from the scaffolded project so it doesn't try to be a CLI itself
+            // Cleanup template-specific fields
             delete pkg.bin;
+            delete pkg.files;
+            delete pkg.repository;
+            delete pkg.publishConfig;
 
             fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
+            console.log(chalk.green('✅ package.json updated'));
         } catch (err) {
-            console.log(chalk.yellow('⚠️  Could not auto-update package.json name. You may need to do it manually.'));
+            console.log(chalk.yellow('⚠️  Could not auto-update package.json. You may need to do it manually.'));
         }
 
         // 4. Install Dependencies
