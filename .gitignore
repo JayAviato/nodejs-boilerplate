@@ -1,0 +1,53 @@
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment variables
+.env
+.env.production
+.env.development
+.env.local
+.env.*.local
+
+# Database
+src/infrastructure/database/prisma/migrations/
+# Keep the migrations folder structure but exclude generated files if any specific ones exist, 
+# but usually migrations should be committed. 
+# However, local sqlite dbs should be ignored.
+*.sqlite
+*.sqlite-journal
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Test artifacts
+test-results/

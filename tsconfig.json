@@ -1,0 +1,81 @@
+{
+    "compilerOptions": {
+        /* ═══════════════════════════════════════════════════════════════════════
+     * STRICTNESS: The Unforgiving Configuration
+     * "Discipline is the bridge between goals and accomplishment."
+     * ═══════════════════════════════════════════════════════════════════════ */
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "useUnknownInCatchVariables": true,
+        "alwaysStrict": true,
+        /* Additional Strictness */
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "exactOptionalPropertyTypes": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "forceConsistentCasingInFileNames": true,
+        /* ═══════════════════════════════════════════════════════════════════════
+     * MODULE RESOLUTION
+     * ═══════════════════════════════════════════════════════════════════════ */
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "verbatimModuleSyntax": true,
+        /* ═══════════════════════════════════════════════════════════════════════
+     * PATH ALIASES (Clean imports)
+     * ═══════════════════════════════════════════════════════════════════════ */
+        "baseUrl": ".",
+        "paths": {
+            "@domain/*": [
+                "src/domain/*"
+            ],
+            "@application/*": [
+                "src/application/*"
+            ],
+            "@infrastructure/*": [
+                "src/infrastructure/*"
+            ],
+            "@presentation/*": [
+                "src/presentation/*"
+            ],
+            "@shared/*": [
+                "src/shared/*"
+            ]
+        },
+        /* ═══════════════════════════════════════════════════════════════════════
+     * OUTPUT
+     * ═══════════════════════════════════════════════════════════════════════ */
+        "outDir": "dist",
+        "rootDir": "src",
+        "declaration": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        /* ═══════════════════════════════════════════════════════════════════════
+     * INTEROP
+     * ═══════════════════════════════════════════════════════════════════════ */
+        "skipLibCheck": true,
+        "lib": [
+            "ES2022"
+        ]
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "tests"
+    ]
+}
