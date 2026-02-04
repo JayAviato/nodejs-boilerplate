@@ -1,6 +1,6 @@
 {
   "name": "nodets-boilerplate-aviato",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Production-ready Node.js + TypeScript boilerplate with Clean Architecture",
   "main": "dist/main.js",
   "bin": {
