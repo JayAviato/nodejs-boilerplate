@@ -4,9 +4,12 @@
   "description": "Production-ready Node.js + TypeScript boilerplate with Clean Architecture",
   "main": "dist/main.js",
   "bin": {
-    "nodets-boilerplate-aviato": "dist/bin/cli.js"
+    "nodets-boilerplate-aviato": "dist/cli.js"
   },
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=20.0.0"
   },
@@ -23,7 +26,7 @@
     "prepublishOnly": "npm run build",
     "postinstall": "prisma generate --schema src/infrastructure/database/prisma/schema.prisma",
     "dev": "tsx watch src/main.ts",
-    "build": "tsc",
+    "build": "tsc && chmod +x dist/cli.js",
     "start": "node dist/main.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
