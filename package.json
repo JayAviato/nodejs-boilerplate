@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "prepublishOnly": "npm run build",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate --schema src/infrastructure/database/prisma/schema.prisma",
     "dev": "tsx watch src/main.ts",
     "build": "tsc",
     "start": "node dist/main.js",
@@ -30,9 +30,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint src --ext .ts",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:push": "prisma db push"
+    "db:generate": "prisma generate --schema src/infrastructure/database/prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema src/infrastructure/database/prisma/schema.prisma",
+    "db:push": "prisma db push --schema src/infrastructure/database/prisma/schema.prisma"
   },
   "keywords": [
     "typescript",
