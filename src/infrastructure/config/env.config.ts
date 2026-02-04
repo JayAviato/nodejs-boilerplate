@@ -34,6 +34,12 @@ const envSchema = z.object({
     // Database
     // ─────────────────────────────────────────────────────────────────────────
     DATABASE_URL: z.string().url().startsWith('postgresql://'),
+    DB_TYPE: z.enum(['postgres', 'mysql', 'mongo', 'firestore']).default('postgres'),
+
+    // Firebase (Required only if DB_TYPE is firestore)
+    FIREBASE_PROJECT_ID: z.string().optional(),
+    FIREBASE_CLIENT_EMAIL: z.string().optional(),
+    FIREBASE_PRIVATE_KEY: z.string().optional(),
 
     // ─────────────────────────────────────────────────────────────────────────
     // Logging

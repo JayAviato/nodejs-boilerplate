@@ -76,7 +76,25 @@ We use **Prisma** for database management.
 
 > **Note**: Never modify `migrations/` SQL files manually unless you know exactly what you are doing.
 
-### 3. Error Handling
+> **Note**: Never modify `migrations/` SQL files manually unless you know exactly what you are doing.
+
+### 3. Switching Databases
+
+This boilerplate supports **PostgreSQL**, **MySQL**, **MongoDB** (via Prisma), and **Firestore**.
+
+#### To use Firestore:
+1. Set `DB_TYPE="firestore"` in `.env`.
+2. Add Firebase credentials to `.env`.
+3. Register `FirestoreRepository` implementations in `src/infrastructure/container/container.ts`.
+
+```typescript
+// src/infrastructure/container/container.ts
+if (env.DB_TYPE === 'firestore') {
+  container.registerSingleton(TOKENS.UserRepo, () => new FirestoreUserRepository());
+}
+```
+
+### 4. Error Handling
 
 **DO NOT** throw errors for business logic. Use the `Result` pattern.
 

@@ -91,14 +91,25 @@ export function createApp(): Application {
     return app;
 }
 
+import { createServer } from 'http';
+import { container, TOKENS } from '../../infrastructure/container/container.js';
+import { SocketIOService } from '../../infrastructure/socket/socket.io.service.js';
+
 /**
  * Start the HTTP server
  */
 export async function startServer(): Promise<void> {
     const app = createApp();
+    const httpServer = createServer(app);
+
+    // Initialize Socket.io
+    const socketService = container.resolve(TOKENS.SocketService);
+    if (socketService instanceof SocketIOService) {
+        socketService.initialize(httpServer);
+    }
 
     return new Promise((resolve) => {
-        app.listen(env.PORT, env.HOST, () => {
+        httpServer.listen(env.PORT, () => {
             logger.info(`🚀 Server listening on http://${env.HOST}:${env.PORT}`, {
                 port: env.PORT,
                 host: env.HOST,

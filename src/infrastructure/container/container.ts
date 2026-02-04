@@ -7,6 +7,15 @@
  *
  * A simple, type-safe DI container without external dependencies.
  * For production, consider using tsyringe or inversify.
+ *
+ * MULTI-DATABASE STRATEGY:
+ * To support multiple databases, register repositories based on `env.DB_TYPE`.
+ * Example:
+ * if (env.DB_TYPE === 'firestore') {
+ *   container.registerSingleton(TOKENS.UserRepo, () => new FirestoreUserRepository());
+ * } else {
+ *   container.registerSingleton(TOKENS.UserRepo, () => new PrismaUserRepository());
+ * }
  */
 
 /**
@@ -119,11 +128,14 @@ export const container = new Container();
 // ═══════════════════════════════════════════════════════════════════════════
 
 import type { ILogger, ILoggerFactory } from '../../application/ports/logger.port.js';
+import type { ISocketService } from '../../application/ports/socket.port.js';
 
 export const TOKENS = {
     Logger: createToken<ILogger>('Logger'),
     LoggerFactory: createToken<ILoggerFactory>('LoggerFactory'),
-    // Add more tokens as needed:
-    // UserRepository: createToken<IRepository<User, UserProps>>('UserRepository'),
-    // PostRepository: createToken<IRepository<Post, PostProps>>('PostRepository'),
+    // Repositories...
+    SocketService: createToken<ISocketService>('SocketService'),
 } as const;
+
+import { SocketIOService } from '../socket/socket.io.service.js';
+container.registerSingleton(TOKENS.SocketService, () => new SocketIOService());

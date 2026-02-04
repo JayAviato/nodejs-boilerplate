@@ -15,6 +15,7 @@ A production-ready, enterprise-grade Node.js + TypeScript starter kit implementi
 - **📝 Structured Logging** - Pino-based logging with pretty dev output
 - **🧪 Vitest Testing** - Unit and integration test setup with factories
 - **🗄️ Prisma ORM** - Type-safe database access with repository pattern
+- **🔌 WebSockets** - Real-time communication with Socket.io
 
 ## 🚀 Quick Start
 
@@ -196,6 +197,12 @@ PORT=3000
 
 # Database
 DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+DB_TYPE="postgres" # postgres | mysql | mongo | firestore
+
+# Firebase (Only if DB_TYPE=firestore)
+FIREBASE_PROJECT_ID="your-project-id"
+FIREBASE_CLIENT_EMAIL="firebase-adminsdk-xxxxx@your-project.iam.gserviceaccount.com"
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
 
 # Security
 JWT_SECRET=your-secret-key-min-32-chars
