@@ -10,7 +10,17 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JayAviato/nodejs-boilerplate.git"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
+    "prepublishOnly": "npm run build",
     "dev": "tsx watch src/main.ts",
     "build": "tsc",
     "start": "node dist/main.js",
@@ -30,7 +40,7 @@
     "boilerplate",
     "enterprise"
   ],
-  "author": "",
+  "author": "JayAviato",
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^5.10.0",
