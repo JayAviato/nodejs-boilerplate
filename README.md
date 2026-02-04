@@ -21,6 +21,15 @@ A production-ready, enterprise-grade Node.js + TypeScript starter kit implementi
 
 > **New to the team?** Start by checking [DEVELOPERS.md](./DEVELOPERS.md) for a day-to-day guide on adding features, debugging, and testing.
 
+### Using the CLI (Recommended)
+
+```bash
+# Initialize a new project
+npx nodets-boilerplate-aviato my-new-app
+```
+
+### Manual Setup
+
 ```bash
 # Install dependencies
 npm install
