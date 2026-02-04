@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "prepublishOnly": "npm run build",
+    "postinstall": "prisma generate",
     "dev": "tsx watch src/main.ts",
     "build": "tsc",
     "start": "node dist/main.js",
