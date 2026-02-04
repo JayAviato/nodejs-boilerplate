@@ -214,6 +214,8 @@ MAX_PAGE_SIZE=100
 
 ## 🏛️ Architecture Philosophy
 
+> **Want a deep dive?** Read the [Architecture Guide](./ARCHITECTURE.md) for a detailed breakdown perfect for onboarding new team members.
+
 ### Clean Architecture
 
 Dependencies flow **inward**. The domain layer knows nothing about HTTP, databases, or frameworks. This makes the core business logic:
